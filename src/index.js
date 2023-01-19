@@ -1,7 +1,8 @@
 import React from 'react';
 // import ReactDOM from 'react-dom/client';
 import ReactDOM from "react-dom";
-import App from './App';
+import App from './components/App';
+import emojipedia from './components/emojjipedia';
 // import './index.css';
 // import App from './App';
 // import reportWebVitals from './reportWebVitals';
@@ -36,4 +37,9 @@ ReactDOM.render(
   <App />
   ,
   document.getElementById("root")
-);
+  );
+  
+// const newArr=emojipedia.map(function(data){
+//       return data.meaning.substring(0,100);
+// });
+// console.log(newArr);
