@@ -12,6 +12,8 @@ import Login from './Login';
 import Register from './Register';
 import cars from './practice';
 import animals from './data';
+import ToDoItem from './ToDoItem';
+import InputArea from './InputArea';
 
 
 // function createCard(contact){
@@ -67,29 +69,209 @@ import animals from './data';
 //     setBgColor("white");
 // }
 
-function App(){
-    const [name,setName]=useState("");
-    const [headingText,setHeading]=useState("");
-    function handleChange(event){
-        setName(event.target.value);
-    }
-    function handleClick(event){
-        setHeading(name);
+// function App(){
+//     const [name,setName]=useState("");
+//     const [headingText,setHeading]=useState("");
+//     function handleChange(event){
+//         setName(event.target.value);
+//     }
+//     function handleClick(event){
+//         setHeading(name);
 
-        event.preventDefault();
+//         event.preventDefault();
+//     }
+//     return (
+//         <div className="container">
+//           <h1>Hello {headingText}</h1>
+//           <form onSubmit={handleClick}>
+//             <input onChange={handleChange} type="text" value={name} placeholder="What's your name?" />
+//             <button type="submit" >Submit</button>
+//           </form>
+//         </div>
+//       );
+//     }
+  // function App() {
+  //   // const [fName,setFName]=useState("");
+  //   // const [lName,setLName]=useState("");
+
+  //   // function updateFName(event){
+  //   //   setFName(event.target.value);
+  //   // }
+  //   // function updateLName(event){
+  //   //   setLName(event.target.value)
+  //   // }
+
+  //   const [fullName, setFullName]=useState({
+  //     fName: "",
+  //     lName: ""
+  //   });
+  //   function handleChange(event){
+  //     // const newValue=event.target.value;
+  //     // const inputName=event.target.name;
+  //     // setFullName({inputName : newValue});
+  //     const {value:newValue,name:inputName}=event.target;
+  //     setFullName((prevValue)=>{
+  //       if(inputName==="fName"){
+  //         return {
+  //           fName:newValue,
+  //           lName:prevValue.lName
+  //         }
+  //       }
+  //       else if(inputName==="lName"){
+  //         return {
+  //           fName:prevValue.fName,
+  //           lName:newValue
+  //         }
+  //       }
+  //     });
+  //   }
+  //   return (
+  //     <div className="container">
+  //       <h1>
+  //         {/* Hello {fName} {lName} */}
+  //         Hello {fullName.fName} {fullName.lName}
+  //       </h1>
+  //       <form>
+  //         <input 
+  //           onChange={handleChange}  
+  //           name="fName" 
+  //           placeholder="First Name" 
+  //           value={fullName.fName}
+  //         />
+  //         <input 
+  //           onChange={handleChange}  
+  //           name="lName" 
+  //           placeholder="Last Name" 
+  //           value={fullName.lName}
+  //         />
+  //         <button>Submit</button>
+  //       </form>
+  //     </div>
+  //   );
+  // }
+  function App() {
+
+    const[items,setItems]=useState([]);
+    function addItem(inputText){
+      setItems( prevItems => [...prevItems,inputText]);
+    }
+    function deleteItem(id){
+      setItems((prevItems)=>{
+        return prevItems.filter((item,index)=>{
+          return index!==id;
+        })
+      })
     }
     return (
-        <div className="container">
-          <h1>Hello {headingText}</h1>
-          <form onSubmit={handleClick}>
-            <input onChange={handleChange} type="text" value={name} placeholder="What's your name?" />
-            <button type="submit" >Submit</button>
-          </form>
+      <div className="container">
+        <div className="heading">
+          <h1>To-Do List</h1>
         </div>
-      );
-    }
+          <InputArea onAdd={addItem}/>
+        <div>
+          <ul>
+            {items.map((todoItem,index) => <ToDoItem key={index} id={index} text={todoItem} onChecked={deleteItem}/> )}
+          </ul>
+        </div>
+      </div>
+    );
+  }
+  export default App;
+
+  //CHALLENGE: Make this app work by applying what you've learnt.
+//1. When new text is written into the input, its state should be saved.
+//2. When the add button is pressed, the current data in the input should be
+//added to an array.
+//3. The <ul> should display all the array items as <li>s
+
+
+
+    // function App() {
+    //   const [contact, setContact] = useState({
+    //     fName: "",
+    //     lName: "",
+    //     email: ""
+    //   });
     
-    export default App;
+    //   function handleChange(event){
+    //     const {value:newValue,name:inputName}=event.target;
+        
+    //     setContact((prevValue)=>{
+    //       // if(inputName==='fName'){
+    //       //   return {
+    //       //     fName:newValue,
+    //       //     lName:prevValue.lName,
+    //       //     email:prevValue.email
+    //       //   }
+    //       // }
+    //       // else if(inputName==='lName'){
+    //       //   return {
+    //       //     fName:prevValue.fName,
+    //       //     lName:newValue,
+    //       //     email:prevValue.email
+    //       //   }
+    //       // }
+    //       // else if(inputName==='email'){
+    //       //   return {
+    //       //     fName:prevValue.fName,
+    //       //     lName:prevValue.lName,
+    //       //     email:newValue
+    //       //   }
+    //       // }
+    //       return{
+    //         ...prevValue,
+    //         [inputName] :newValue
+    //       }
+    //     });
+    //   }
+
+
+    
+    //   return (
+    //     <div className="container">
+    //       <h1>
+    //         Hello {contact.fName} {contact.lName}
+    //       </h1>
+    //       <p>{contact.email}</p>
+    //       <form>
+    //         <input 
+    //           name="fName" 
+    //           placeholder="First Name" 
+    //           onChange={handleChange}
+    //           value={contact.fName}
+    //         />
+    //         <input 
+    //           name="lName" 
+    //           placeholder="Last Name"
+    //           onChange={handleChange}
+    //           value={contact.lName}
+    //          />
+    //         <input 
+    //           name="email" 
+    //           placeholder="Email" 
+    //           onChange={handleChange}
+    //           value={contact.email}
+    //         />
+    //         <button>Submit</button>
+    //       </form>
+    //     </div>
+    //   );
+    // }
+
+
+
+
+    //CHALLENGE: Make the code in App.jsx work.
+//The final app should have a single contact
+//with fName, lName and email.
+
+//HINT: You'll need to apply the following things you learnt:
+//1. Using JS Objects with state.
+//2. Making use of previous state when changing state.
+//3. Working with forms in React.
+//4. Handing events
+
+
     {/* <div className="container">
       <h1>{headingText}</h1>
       <input type="text" placeholder="What's your name?" />

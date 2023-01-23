@@ -43,3 +43,7 @@ ReactDOM.render(
 //       return data.meaning.substring(0,100);
 // });
 // console.log(newArr);
+
+// const citrus=["Lime","Lemon","Orange"];
+// const fruits=["apple","banana","coconut",...citrus];
+// console.log(fruits);
