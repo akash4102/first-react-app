@@ -1,182 +1,273 @@
-import React, {useState} from 'react';
-import Header from './Header';
-import Footer from './Footer';
-import Note from './Note';
-import contacts from './contacts';
-import Card from './Card';
-import Avatar from './Avatar';
-import emojipedia from './emojjipedia';
-import Emojjis from './EmojJis';
-import notes from './notes';
-import Login from './Login';
-import Register from './Register';
-import cars from './practice';
-import animals from './data';
-import ToDoItem from './ToDoItem';
-import InputArea from './InputArea';
+import React, { useState } from "react";
+import Header from "./Header";
+import Footer from "./Footer";
+import Note from "./Note";
+import CreateArea from "./CreateArea";
 
+function App() {
+  const [notes, setNotes] = useState([]);
 
-// function createCard(contact){
-//     return (
-//     <Card 
-//         id={contact.id}
-//         key={contact.id}
-//         name={contact.name}
-//         img={contact.imgURL}
-//         tel={contact.phone}
-//         email={contact.email}
-//     />
-//     );
-// }
-
-// function Entry(data){
-//     return (
-//         <Emojjis 
-//             key={data.id}
-//             img={data.emoji}
-//             name={data.name}
-//             mean={data.meaning}
-//         />
-//     )
-// }
-
-// var isRegistered=true;
-// function App(){
-//     return (
-//         <div className="container">
-//         {isRegistered===true ? <Login /> : <Register />}
-//         </div>
-//     );
-// }
-
-// let [honda ,tesla]=cars
-// var {speedStats : {topSpeed:teslaTopSpeed},coloursByPopularity: [teslaTopColour]}=tesla;
-
-// var {speedStats : {topSpeed:hondaTopSpeed},coloursByPopularity: [hondaTopColour]}=honda;
-
-
-
-// const [headingText,setHeadingText]=useState("Hello")
-// const [bgColor,setBgColor]=useState("white");
-// function handleClick(){
-//     setHeadingText("submitted");
-
-// }
-// function over(){
-//     setBgColor("black");
-// }
-// function out(){
-//     setBgColor("white");
-// }
-
-// function App(){
-//     const [name,setName]=useState("");
-//     const [headingText,setHeading]=useState("");
-//     function handleChange(event){
-//         setName(event.target.value);
-//     }
-//     function handleClick(event){
-//         setHeading(name);
-
-//         event.preventDefault();
-//     }
-//     return (
-//         <div className="container">
-//           <h1>Hello {headingText}</h1>
-//           <form onSubmit={handleClick}>
-//             <input onChange={handleChange} type="text" value={name} placeholder="What's your name?" />
-//             <button type="submit" >Submit</button>
-//           </form>
-//         </div>
-//       );
-//     }
-  // function App() {
-  //   // const [fName,setFName]=useState("");
-  //   // const [lName,setLName]=useState("");
-
-  //   // function updateFName(event){
-  //   //   setFName(event.target.value);
-  //   // }
-  //   // function updateLName(event){
-  //   //   setLName(event.target.value)
-  //   // }
-
-  //   const [fullName, setFullName]=useState({
-  //     fName: "",
-  //     lName: ""
-  //   });
-  //   function handleChange(event){
-  //     // const newValue=event.target.value;
-  //     // const inputName=event.target.name;
-  //     // setFullName({inputName : newValue});
-  //     const {value:newValue,name:inputName}=event.target;
-  //     setFullName((prevValue)=>{
-  //       if(inputName==="fName"){
-  //         return {
-  //           fName:newValue,
-  //           lName:prevValue.lName
-  //         }
-  //       }
-  //       else if(inputName==="lName"){
-  //         return {
-  //           fName:prevValue.fName,
-  //           lName:newValue
-  //         }
-  //       }
-  //     });
-  //   }
-  //   return (
-  //     <div className="container">
-  //       <h1>
-  //         {/* Hello {fName} {lName} */}
-  //         Hello {fullName.fName} {fullName.lName}
-  //       </h1>
-  //       <form>
-  //         <input 
-  //           onChange={handleChange}  
-  //           name="fName" 
-  //           placeholder="First Name" 
-  //           value={fullName.fName}
-  //         />
-  //         <input 
-  //           onChange={handleChange}  
-  //           name="lName" 
-  //           placeholder="Last Name" 
-  //           value={fullName.lName}
-  //         />
-  //         <button>Submit</button>
-  //       </form>
-  //     </div>
-  //   );
-  // }
-  function App() {
-
-    const[items,setItems]=useState([]);
-    function addItem(inputText){
-      setItems( prevItems => [...prevItems,inputText]);
-    }
-    function deleteItem(id){
-      setItems((prevItems)=>{
-        return prevItems.filter((item,index)=>{
-          return index!==id;
-        })
-      })
-    }
-    return (
-      <div className="container">
-        <div className="heading">
-          <h1>To-Do List</h1>
-        </div>
-          <InputArea onAdd={addItem}/>
-        <div>
-          <ul>
-            {items.map((todoItem,index) => <ToDoItem key={index} id={index} text={todoItem} onChecked={deleteItem}/> )}
-          </ul>
-        </div>
-      </div>
-    );
+  function addNote(newNote) {
+    setNotes(prevNotes => {
+      return [...prevNotes, newNote];
+    });
   }
-  export default App;
+
+  function deleteNote(id) {
+    setNotes(prevNotes => {
+      return prevNotes.filter((noteItem, index) => {
+        return index !== id;
+      });
+    });
+  }
+
+  return (
+    <div>
+      <Header />
+      <CreateArea onAdd={addNote} />
+      {notes.map((noteItem, index) => {
+        return (
+          <Note
+            key={index}
+            id={index}
+            title={noteItem.title}
+            content={noteItem.content}
+            onDelete={deleteNote}
+          />
+        );
+      })}
+      <Footer />
+    </div>
+  );
+}
+
+export default App;
+
+
+// import React, {useState} from 'react';
+// import Header from './Header';
+// import Footer from './Footer';
+// import Note from './Note';
+// import CreateArea from './CreateArea';
+
+
+
+// function App() {
+
+//   const [notes,setNotes]=useState([]);
+
+//   function addNote(note){
+//     setNotes(prevValue=>{
+//         return [...prevValue,note];
+//     }); 
+//   }
+//   function deleteItem(id){
+//     setNotes(prevItems=>{
+//       return prevItems.filter((item,index)=>{
+//         return index!==id;
+//       })
+//     })
+//   }
+//   return (
+//     <div>
+//       <Header />
+//       <CreateArea add={addNote}/>
+//       {notes.map((obj,index)=> <Note key={index} id={index}title={obj.title} content={obj.content} deleteNote={deleteItem} />)}
+//       <Footer />
+//     </div>
+//   );
+// }
+
+// export default App;
+// import React, {useState} from 'react';
+// import Header from './Header';
+// import Footer from './Footer';
+// import Note from './Note';
+// import contacts from './contacts';
+// import Card from './Card';
+// import Avatar from './Avatar';
+// import emojipedia from './emojjipedia';
+// import Emojjis from './EmojJis';
+// import notes from './notes';
+// import Login from './Login';
+// import Register from './Register';
+// import cars from './practice';
+// import animals from './data';
+// import ToDoItem from './ToDoItem';
+// import InputArea from './InputArea';
+
+
+// function App() {
+//   return (<div>
+//     <Header />
+//       { notes.map(data => {
+//           return <Note 
+//             key={data.key} 
+//             title={data.title} 
+//             content={data.content}
+//           />}
+//       )}
+//     <Footer />
+//   </div>);
+//   }
+//     export default App;
+    // function createCard(contact){
+    //     return (
+    //     <Card 
+    //         id={contact.id}
+    //         key={contact.id}
+    //         name={contact.name}
+    //         img={contact.imgURL}
+    //         tel={contact.phone}
+    //         email={contact.email}
+    //     />
+    //     );
+    // }
+    
+    // function Entry(data){
+    //     return (
+    //         <Emojjis 
+    //             key={data.id}
+    //             img={data.emoji}
+    //             name={data.name}
+    //             mean={data.meaning}
+    //         />
+    //     )
+    // }
+    
+    // var isRegistered=true;
+    // function App(){
+    //     return (
+    //         <div className="container">
+    //         {isRegistered===true ? <Login /> : <Register />}
+    //         </div>
+    //     );
+    // }
+    
+    // let [honda ,tesla]=cars
+    // var {speedStats : {topSpeed:teslaTopSpeed},coloursByPopularity: [teslaTopColour]}=tesla;
+    
+    // var {speedStats : {topSpeed:hondaTopSpeed},coloursByPopularity: [hondaTopColour]}=honda;
+    
+    
+    
+    // const [headingText,setHeadingText]=useState("Hello")
+    // const [bgColor,setBgColor]=useState("white");
+    // function handleClick(){
+    //     setHeadingText("submitted");
+    
+    // }
+    // function over(){
+    //     setBgColor("black");
+    // }
+    // function out(){
+    //     setBgColor("white");
+    // }
+    
+    // function App(){
+    //     const [name,setName]=useState("");
+    //     const [headingText,setHeading]=useState("");
+    //     function handleChange(event){
+    //         setName(event.target.value);
+    //     }
+    //     function handleClick(event){
+    //         setHeading(name);
+    
+    //         event.preventDefault();
+    //     }
+    //     return (
+    //         <div className="container">
+    //           <h1>Hello {headingText}</h1>
+    //           <form onSubmit={handleClick}>
+    //             <input onChange={handleChange} type="text" value={name} placeholder="What's your name?" />
+    //             <button type="submit" >Submit</button>
+    //           </form>
+    //         </div>
+    //       );
+    //     }
+      // function App() {
+      //   // const [fName,setFName]=useState("");
+      //   // const [lName,setLName]=useState("");
+    
+      //   // function updateFName(event){
+      //   //   setFName(event.target.value);
+      //   // }
+      //   // function updateLName(event){
+      //   //   setLName(event.target.value)
+      //   // }
+    
+      //   const [fullName, setFullName]=useState({
+      //     fName: "",
+      //     lName: ""
+      //   });
+      //   function handleChange(event){
+      //     // const newValue=event.target.value;
+      //     // const inputName=event.target.name;
+      //     // setFullName({inputName : newValue});
+      //     const {value:newValue,name:inputName}=event.target;
+      //     setFullName((prevValue)=>{
+      //       if(inputName==="fName"){
+      //         return {
+      //           fName:newValue,
+      //           lName:prevValue.lName
+      //         }
+      //       }
+      //       else if(inputName==="lName"){
+      //         return {
+      //           fName:prevValue.fName,
+      //           lName:newValue
+      //         }
+      //       }
+      //     });
+      //   }
+      //   return (
+      //     <div className="container">
+      //       <h1>
+      //         {/* Hello {fName} {lName} */}
+      //         Hello {fullName.fName} {fullName.lName}
+      //       </h1>
+      //       <form>
+      //         <input 
+      //           onChange={handleChange}  
+      //           name="fName" 
+      //           placeholder="First Name" 
+      //           value={fullName.fName}
+      //         />
+      //         <input 
+      //           onChange={handleChange}  
+      //           name="lName" 
+      //           placeholder="Last Name" 
+      //           value={fullName.lName}
+      //         />
+      //         <button>Submit</button>
+      //       </form>
+      //     </div>
+      //   );
+      // }
+  // const[items,setItems]=useState([]);
+  // function addItem(inputText){
+  //   setItems( prevItems => [...prevItems,inputText]);
+  // }
+  // function deleteItem(id){
+  //   setItems((prevItems)=>{
+  //     return prevItems.filter((item,index)=>{
+  //       return index!==id;
+  //     })
+  //   })
+  // }
+  // return (
+  //   <div className="container">
+  //     <div className="heading">
+  //       <h1>To-Do List</h1>
+  //     </div>
+  //       <InputArea onAdd={addItem}/>
+  //     <div>
+  //       <ul>
+  //         {items.map((todoItem,index) => <ToDoItem key={index} id={index} text={todoItem} onChecked={deleteItem}/> )}
+  //       </ul>
+  //     </div>
+  //   </div>
+  // );
 
   //CHALLENGE: Make this app work by applying what you've learnt.
 //1. When new text is written into the input, its state should be saved.
@@ -322,9 +413,6 @@ import InputArea from './InputArea';
 //     </div>
 // );
 
-{/* <Header />
-{notes.map(data => <Note key={data.key} title={data.title} content={data.content}/>)}
-<Footer /> */}
 {/* <h1> <span>emojipedia</span> </h1>
 <dl className='dictionary'>
     {emojipedia.map(Entry)}
@@ -339,5 +427,7 @@ import InputArea from './InputArea';
 //3. Use props to render the default Beyonce contact card
 //so the Card component can be reused for other contacts.
 //4. Import the contacts.js file to create card components.
+
+
 
 

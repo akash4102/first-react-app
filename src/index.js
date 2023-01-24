@@ -1,8 +1,9 @@
 import React from 'react';
-// import ReactDOM from 'react-dom/client';
 import ReactDOM from "react-dom";
 import App from './components/App';
-import emojipedia from './components/emojjipedia';
+// import ReactDOM from 'react-dom/client';
+// import App from './components/App';
+// import emojipedia from './components/emojjipedia';
 // import './index.css';
 // import App from './App';
 // import reportWebVitals from './reportWebVitals';
